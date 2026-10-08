@@ -1,0 +1,11 @@
+---
+// src/components/MoodInit.astro
+---
+<script is:inline>
+  (function() {
+    const savedMood = localStorage.getItem('serein.mood');
+    if (savedMood && ['clear', 'misty', 'rainy', 'stormy', 'sunshower'].includes(savedMood)) {
+      document.documentElement.setAttribute('data-mood', savedMood);
+    }
+  })();
+</script>

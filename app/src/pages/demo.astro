@@ -1,0 +1,250 @@
+---
+import '../styles/app.css';
+import { Button } from '../components/ui/Button';
+import { Input } from '../components/ui/Input';
+import { Card } from '../components/ui/Card';
+import { Slider } from '../components/ui/Slider';
+import { Toggle } from '../components/ui/Toggle';
+import { Avatar } from '../components/ui/Avatar';
+import { Modal } from '../components/ui/Modal';
+
+import { SectionWrapper } from '../components/ui/SectionWrapper';
+import { MoodChip } from '../components/ui/MoodChip';
+import { MoodGlyph } from '../components/ui/MoodGlyph';
+import { MoodMap } from '../components/ui/MoodMap';
+import { EnergySlider } from '../components/ui/EnergySlider';
+import { OverlayDemo } from '../components/ui/OverlayDemo';
+import { MoodSelect } from '../components/ui/MoodSelect';
+import MoodInit from '../components/MoodInit.astro';
+
+const moods = ['clear', 'misty', 'rainy', 'stormy', 'sunshower'];
+---
+
+<html lang="en" data-theme="light" data-mood="clear">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Serein UI Primitives Demo</title>
+    <style>
+      body {
+        background-color: var(--color-canvas);
+        color: var(--color-primary);
+        font-family: var(--font-body);
+      }
+    </style>
+    <MoodInit />
+  </head>
+  <body>
+    <!-- Controls -->
+      <div class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-subtle p-4 flex flex-wrap gap-4 items-center justify-between">
+        <h1 class="font-display font-semibold text-xl">Serein UI Demo</h1>
+        
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <label class="text-sm">Theme:</label>
+            <select id="theme-select" class="bg-canvas border border-subtle rounded-md px-2 py-1 text-sm">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <label class="text-sm">Mood:</label>
+            <MoodSelect client:load />
+          </div>
+        </div>
+      </div>
+
+      <SectionWrapper tone="canvas">
+        <div class="flex flex-col gap-16 pb-32">
+          
+          <!-- 1. Buttons -->
+          <div class="space-y-4">
+            <h2 class="font-display text-2xl font-medium border-b border-subtle pb-2">1. Buttons</h2>
+            
+            <div class="grid gap-6">
+              <div class="flex flex-wrap gap-4 items-center">
+                <p class="w-32 text-sm font-medium">Primary</p>
+                <Button variant="primary" size="sm" label="Small" />
+                <Button variant="primary" size="md" label="Medium" />
+                <Button variant="primary" size="lg" label="Large" />
+                <Button variant="primary" disabled label="Disabled" />
+                <Button variant="primary" loading label="Loading" />
+              </div>
+              
+              <div class="flex flex-wrap gap-4 items-center">
+                <p class="w-32 text-sm font-medium">Secondary</p>
+                <Button variant="secondary" size="md" label="Secondary" />
+                <Button variant="secondary" disabled label="Disabled" />
+              </div>
+              
+              <div class="flex flex-wrap gap-4 items-center">
+                <p class="w-32 text-sm font-medium">Ghost</p>
+                <Button variant="ghost" size="md" label="Ghost" />
+              </div>
+              
+              <div class="flex flex-wrap gap-4 items-center">
+                <p class="w-32 text-sm font-medium">Danger</p>
+                <Button variant="danger" size="md" label="Danger" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Inputs -->
+          <div class="space-y-4">
+            <h2 class="font-display text-2xl font-medium border-b border-subtle pb-2">2. Inputs</h2>
+            <div class="grid sm:grid-cols-2 gap-8 max-w-4xl">
+              <Input client:load label="Text Input" placeholder="Default state" />
+              <Input client:load label="With Counter" placeholder="Start typing..." counter={50} value="Initial text" />
+              <Input client:load label="Error State" error="This field is required" placeholder="Error input" />
+              <Input client:load label="Password" type="password" placeholder="Enter password" />
+              <div class="sm:col-span-2">
+                <Input client:load label="Textarea" type="textarea" placeholder="Long form text..." />
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Cards -->
+          <div class="space-y-4">
+            <h2 class="font-display text-2xl font-medium border-b border-subtle pb-2">3. Cards</h2>
+            <div class="grid sm:grid-cols-3 gap-6">
+              <Card elevation="flat" type="base">
+                <h3 class="font-medium">Flat Card</h3>
+                <p class="text-sm text-secondary mt-2">Basic flat elevation on surface.</p>
+              </Card>
+              
+              <Card elevation="raised" type="feature">
+                <h3 class="font-medium">Raised Feature</h3>
+                <p class="text-sm text-secondary">Has shadow and more padding.</p>
+                <Button size="sm" label="Action" />
+              </Card>
+              
+              <div class="p-6 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl">
+                <Card elevation="glass" type="base">
+                  <h3 class="font-medium">Glass Card</h3>
+                  <p class="text-sm text-secondary mt-2">Backdrop blur on busy backgrounds.</p>
+                </Card>
+              </div>
+
+              <Card type="journal">
+                <h3 class="font-medium">Journal Card</h3>
+                <p class="text-sm text-secondary">With accent left border.</p>
+              </Card>
+
+              <Card type="stat">
+                <div class="flex flex-col">
+                  <span class="text-sm text-secondary">Total Entries</span>
+                  <span class="text-2xl font-display">42</span>
+                </div>
+                <MoodGlyph mood="clear" size="lg" />
+              </Card>
+
+              <Card type="moodWeather">
+                <h3 class="font-medium text-lg">Mood Weather</h3>
+                <p class="text-sm opacity-90 mt-1">Adapts to current mood variables.</p>
+              </Card>
+            </div>
+          </div>
+
+          <!-- 4. Sliders -->
+          <div class="space-y-4 max-w-md">
+            <h2 class="font-display text-2xl font-medium border-b border-subtle pb-2">4. Sliders</h2>
+            <div class="space-y-8">
+              <div>
+                <p class="mb-2 text-sm font-medium">Default Slider</p>
+                <Slider client:load value={5} />
+              </div>
+              <div>
+                <p class="mb-2 text-sm font-medium">With Ticks and Value</p>
+                <Slider client:load value={7} showTicks showValue />
+              </div>
+              <div>
+                <p class="mb-2 text-sm font-medium">Disabled</p>
+                <Slider client:load value={3} disabled />
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Toggles -->
+          <div class="space-y-4">
+            <h2 class="font-display text-2xl font-medium border-b border-subtle pb-2">5. Toggles</h2>
+            <div class="flex gap-8 items-center">
+              <Toggle client:load size="sm" />
+              <Toggle client:load size="md" checked />
+              <Toggle client:load disabled />
+              <Toggle client:load disabled checked />
+            </div>
+          </div>
+
+          <!-- 6. Avatars -->
+          <div class="space-y-4">
+            <h2 class="font-display text-2xl font-medium border-b border-subtle pb-2">6. Avatars</h2>
+            <div class="flex flex-wrap gap-8 items-center">
+              <div class="flex gap-4 items-center">
+                <Avatar size="xs" type="initials" initials="US" />
+                <Avatar size="sm" type="initials" initials="US" />
+                <Avatar size="md" type="initials" initials="US" />
+                <Avatar size="lg" type="initials" initials="US" />
+              </div>
+              <div class="flex gap-4 items-center">
+                <Avatar size="md" type="mood" />
+                <Avatar size="md" type="image" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />
+                <Avatar size="md" type="initials" initials="AB" status ring />
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Modals & 8. Toasts -->
+          <div class="space-y-4">
+            <h2 class="font-display text-2xl font-medium border-b border-subtle pb-2">7 & 8. Overlays (Modals & Toasts)</h2>
+            <OverlayDemo client:load />
+          </div>
+
+          <!-- 10. Mood System -->
+          <div class="space-y-8">
+            <h2 class="font-display text-2xl font-medium border-b border-subtle pb-2">10. Mood System</h2>
+            
+            <div class="space-y-2">
+              <p class="text-sm font-medium">Mood Chips & Glyphs</p>
+              <div class="flex flex-wrap gap-4">
+                {moods.map(m => (
+                  <MoodChip mood={m as any} size="md" />
+                ))}
+              </div>
+              <div class="flex flex-wrap gap-4 mt-4 bg-surface p-4 rounded-lg">
+                {moods.map(m => (
+                  <MoodGlyph mood={m as any} size="xl" />
+                ))}
+              </div>
+            </div>
+            
+            <div class="space-y-2 max-w-sm">
+              <p class="text-sm font-medium">Energy Slider</p>
+              <EnergySlider client:load value={6} />
+            </div>
+
+            <div class="space-y-2">
+              <p class="text-sm font-medium">Mood Map (30 Days)</p>
+              <MoodMap client:load data={[
+                { date: '1', mood: 'clear' }, { date: '2', mood: 'misty' }, { date: '3', mood: 'rainy' },
+                { date: '4', mood: 'stormy' }, { date: '5', mood: 'sunshower' }, { date: '6', mood: 'clear' },
+                { date: '7', mood: 'clear' }, { date: '8', mood: 'misty' }, { date: '9', mood: 'rainy' }
+              ]} />
+            </div>
+          </div>
+          
+        </div>
+      </SectionWrapper>
+
+
+    <script>
+      // Theme & Mood Switcher Logic
+      const themeSelect = document.getElementById('theme-select');
+      const html = document.documentElement;
+
+      themeSelect?.addEventListener('change', (e) => {
+        html.setAttribute('data-theme', e.target.value);
+      });
+    </script>
+  </body>
+</html>

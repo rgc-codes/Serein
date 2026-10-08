@@ -6,6 +6,17 @@
 @import "tailwindcss";
 @import "./tokens.css";
 
+@property --mood-a {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #F4B860;
+}
+@property --mood-b {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #F6F4EF;
+}
+
 /* ---- Wire Tailwind @theme to consume token CSS variables ---- */
 @theme {
   /* Colors */
@@ -91,5 +102,32 @@ html {
   -moz-osx-font-smoothing: grayscale;
   transition:
     background-color var(--duration-slow) var(--ease-out),
-    color var(--duration-base) var(--ease-out);
+    color var(--duration-base) var(--ease-out),
+    --mood-a var(--duration-slow) var(--ease-out),
+    --mood-b var(--duration-slow) var(--ease-out);
+}
+
+/* ---- Mood Animations ---- */
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(8deg); }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(2px); }
+}
+
+@keyframes rain-drop {
+  0% { transform: translateY(0); opacity: 1; }
+  80% { transform: translateY(4px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  10% { opacity: 0.2; }
+  20% { opacity: 1; }
+  30% { opacity: 0.2; }
+  40% { opacity: 1; }
 }

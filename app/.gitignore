@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+coverage/
+coverage-*/
+dist/
+.astro/
+.vscode/
