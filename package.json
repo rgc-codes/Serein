@@ -1,0 +1,18 @@
+{
+  "name": "serein",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Serein — Your emotional weather, beautifully mapped.",
+  "scripts": {
+    "tokens": "node tokens/build.mjs",
+    "dev:landing": "pnpm --filter @serein/landing dev",
+    "dev:app": "pnpm --filter @serein/app dev",
+    "build": "pnpm tokens && pnpm --filter @serein/landing build && pnpm --filter @serein/app build",
+    "test": "vitest run",
+    "lint": "echo \"lint placeholder\""
+  },
+  "devDependencies": {
+    "vitest": "^5.0.3"
+  },
+  "packageManager": "pnpm@10.11.0"
+}

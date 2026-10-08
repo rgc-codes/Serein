@@ -1,0 +1,10 @@
+{
+  "name": "@serein/landing",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Serein landing page — serain.app",
+  "scripts": {
+    "dev": "npx -y serve . -l 4321",
+    "build": "echo \"Static site — no build needed\""
+  }
+}

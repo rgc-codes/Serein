@@ -1,0 +1,115 @@
+---
+/**
+ * src/pages/index.astro
+ * Placeholder page — Sprint 01 foundations only.
+ */
+---
+
+<html lang="en" data-theme="light" data-mood="clear">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Serein — How's Your Inner Weather?</title>
+    <meta
+      name="description"
+      content="Serein app — track your emotional weather with five poetic moods. Clear, Misty, Rainy, Stormy, Sunshower."
+    />
+    <link rel="stylesheet" href="/styles/app.css" />
+  </head>
+  <body
+    class="min-h-dvh flex flex-col items-center justify-center"
+    style="font-family: var(--font-body);"
+  >
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-accent focus:px-3 focus:py-2 focus:text-canvas">
+      Skip to content
+    </a>
+
+    <main id="main" class="flex flex-col items-center gap-6 px-4 text-center">
+      <!-- Mood orbs -->
+      <div class="relative w-32 h-32" aria-hidden="true">
+        <div
+          class="absolute inset-0 rounded-full blur-2xl opacity-40"
+          style="background-color: var(--mood-a);"
+        >
+        </div>
+        <div
+          class="absolute inset-4 rounded-full blur-xl opacity-50"
+          style="background-color: var(--mood-b);"
+        >
+        </div>
+        <div
+          class="absolute inset-8 rounded-full"
+          style="background: linear-gradient(135deg, var(--mood-a), var(--mood-b));"
+        >
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h1
+        class="text-4xl md:text-5xl font-bold tracking-tight"
+        style="font-family: var(--font-display); color: var(--text-primary);"
+      >
+        How's your inner weather?
+      </h1>
+
+      <!-- Subtext -->
+      <p
+        class="max-w-md text-lg"
+        style="color: var(--text-secondary);"
+      >
+        Serein is getting ready. Your emotional landscape is about to unfold.
+      </p>
+
+      <!-- Mood chips -->
+      <div class="flex flex-wrap justify-center gap-2 mt-4" role="group" aria-label="Mood preview">
+        {['clear', 'misty', 'rainy', 'stormy', 'sunshower'].map((mood) => (
+          <button
+            class="mood-chip px-3 py-1.5 rounded-full text-sm font-medium border transition-all duration-150"
+            data-mood-value={mood}
+            style="border-color: var(--border-subtle); color: var(--text-secondary); background: var(--bg-surface);"
+            type="button"
+          >
+            {mood.charAt(0).toUpperCase() + mood.slice(1)}
+          </button>
+        ))}
+      </div>
+
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        class="mt-6 px-4 py-2 rounded-full text-sm font-medium transition-all duration-150"
+        style="border: 1px solid var(--border-subtle); color: var(--text-tertiary); background: var(--bg-surface);"
+        type="button"
+        aria-label="Toggle dark mode"
+      >
+        Toggle theme
+      </button>
+    </main>
+
+    <script is:inline>
+      // Theme toggle
+      const html = document.documentElement;
+      const themeBtn = document.getElementById('theme-toggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+        });
+      }
+
+      // Mood chips
+      document.querySelectorAll('.mood-chip[data-mood-value]').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          html.dataset.mood = chip.dataset.moodValue;
+          document.querySelectorAll('.mood-chip[data-mood-value]').forEach((c) => {
+            c.style.background = c.dataset.moodValue === chip.dataset.moodValue
+              ? 'var(--mood-a)' : 'var(--bg-surface)';
+            c.style.color = c.dataset.moodValue === chip.dataset.moodValue
+              ? 'var(--bg-canvas)' : 'var(--text-secondary)';
+            c.style.borderColor = c.dataset.moodValue === chip.dataset.moodValue
+              ? 'var(--mood-a)' : 'var(--border-subtle)';
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
